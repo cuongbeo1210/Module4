@@ -1,7 +1,7 @@
 package cg.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -10,28 +10,38 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Data
-@NoArgsConstructor
 @Entity
 public class Student implements Validator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
+    @NotNull(message = "Nhập Tên")
     @Pattern(regexp = "[A-Za-z]+")
     private String name;
 
-    @Min(6)
-    @Max(50)
+    @Range(min = 6, max = 50)
     private int age;
 
     private String number;
 
     private String address;
 
-    @Min(0)
-    @Max(10)
+    @Range(min = 0, max =10)
     private double averagePoints;
+
+    public Student(int id,@NotNull @Pattern(regexp = "[A-Za-z]+") String name, @Range(min = 6, max = 50) int age, String number, String address, double averagePoints, Classroom classroom) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.number = number;
+        this.address = address;
+        this.averagePoints = averagePoints;
+        this.classroom = classroom;
+    }
+
+    public Student() {
+    }
 
     public int getId() {
         return id;
