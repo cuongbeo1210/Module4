@@ -1,19 +1,24 @@
 package com.example.springsecurity.controller;
 
 
+import com.example.springsecurity.model.Product;
 import com.example.springsecurity.model.Role;
 import com.example.springsecurity.model.User;
+import com.example.springsecurity.service.ICategoryService;
+import com.example.springsecurity.service.IProductService;
 import com.example.springsecurity.service.IUserService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
 
-@CrossOrigin("*")
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api")
 public class UserController {
     @Autowired
@@ -38,7 +43,9 @@ public class UserController {
         iUserServiceImpl.addRoleToUser(roleToUserForm.getUsername(), roleToUserForm.getPassword());
         return ResponseEntity.ok().build();
     }
+
     @Data
+    static
     class RoleToUserForm{
         private String username;
         private String password;

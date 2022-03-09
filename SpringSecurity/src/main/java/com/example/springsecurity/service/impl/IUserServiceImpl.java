@@ -14,12 +14,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Service @Transactional @Slf4j @RequiredArgsConstructor
+@Service @Transactional @Slf4j @RequiredArgsConstructor @CrossOrigin("*")
 public class IUserServiceImpl implements IUserService, UserDetailsService {
     @Autowired
     private IUserRepository iUserRepository;

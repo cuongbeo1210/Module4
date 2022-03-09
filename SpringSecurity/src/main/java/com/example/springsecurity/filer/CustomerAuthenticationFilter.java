@@ -11,6 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Slf4j
+@Slf4j @CrossOrigin("*")
 public class CustomerAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     public CustomerAuthenticationFilter(AuthenticationManager authenticationManager){
@@ -59,6 +60,7 @@ public class CustomerAuthenticationFilter extends UsernamePasswordAuthentication
         tokens.put("accessToken", accessToken);
 //        tokens.put("refreshToken", refreshToken);
         response.setContentType(APPLICATION_JSON_VALUE);
+//        response.setContentType(APPLICATION_FORM_URLENCODED_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
 }
